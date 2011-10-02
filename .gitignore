@@ -1,0 +1,22 @@
+# android specific
+*.apk
+*.ap_
+*.dex
+
+# java specific
+*.class
+
+# generated files
+bin/
+gen/
+
+# eclipse specific
+local.properties
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.log
