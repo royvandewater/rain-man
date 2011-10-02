@@ -19,10 +19,18 @@ public class ForecastTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		this.forecast = new Forecast(LOCATION, DATE, WEATHER_CONDITION, TEMPERATURE, HUMIDITY);
+		this.forecast = new Forecast();
+	}
+	
+	public void testDefaultConstructor() {
+		assertEquals("None", forecast.getLocation());
+		assertEquals(0, forecast.getTemperature());
+		assertEquals(0.0, forecast.getHumidity());
+		assertEquals("None", forecast.getWeatherCondition());
 	}
 	
 	public void testConstructor() {
+		Forecast forecast = new Forecast(LOCATION, DATE, WEATHER_CONDITION, TEMPERATURE, HUMIDITY);
 		assertEquals(LOCATION, forecast.getLocation());
 		assertEquals(DATE, forecast.getDate());
 		assertEquals(WEATHER_CONDITION, forecast.getWeatherCondition());
@@ -41,5 +49,30 @@ public class ForecastTest extends TestCase {
 		
 		assertEquals(mondayCondition, forecast.getFutureCondition("Mon"));
 		assertEquals(tuesdayCondition, forecast.getFutureCondition("Tue"));
+	}
+	
+	public void testSetLocation() {
+		forecast.setLocation(LOCATION);
+		assertEquals(LOCATION, forecast.getLocation());
+	}
+	
+	public void testSetDate() {
+		forecast.setDate(DATE);
+		assertEquals(DATE, forecast.getDate());
+	}
+	
+	public void testSetWeatherCondition() {
+		forecast.setWeatherCondition(WEATHER_CONDITION);
+		assertEquals(WEATHER_CONDITION, forecast.getWeatherCondition());
+	}
+	
+	public void testSetTemperature() {
+		forecast.setTemperature(TEMPERATURE);
+		assertEquals(TEMPERATURE, forecast.getTemperature());
+	}
+	
+	public void testSetHumidity() {
+		forecast.setHumidity(HUMIDITY);
+		assertEquals(HUMIDITY, forecast.getHumidity());
 	}
 }

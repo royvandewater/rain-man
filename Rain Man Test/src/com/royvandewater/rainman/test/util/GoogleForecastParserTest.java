@@ -1,7 +1,11 @@
 package com.royvandewater.rainman.test.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
@@ -16,15 +20,13 @@ public class GoogleForecastParserTest extends InstrumentationTestCase {
 
 	final private String CLASS_NAME = "class com.royvandewater.rainman.util.GoogleForecastParser";
 	final private String FIXTURE    = "google_forecast.xml";
-	private String sampleXml;
+	private InputStream sampleXmlInputStream;
 	
 	@Override
 	protected void setUp() throws Exception {
 		Context context = getInstrumentation().getContext();
 		AssetManager assetManager = context.getAssets();
-		InputStream sampleXmlInputStream = assetManager.open(FIXTURE);
-		sampleXml = StringFunctions.streamToString(sampleXmlInputStream);
-		
+		this.sampleXmlInputStream = assetManager.open(FIXTURE);
 	}
 	
 	public void testConstructor() {
@@ -32,12 +34,14 @@ public class GoogleForecastParserTest extends InstrumentationTestCase {
 		assertEquals(CLASS_NAME, forecastParser.getClass().toString());
 	}
 	
-	public void testFixture() {
+	public void testFixture() throws IOException {
+		String sampleXml = StringFunctions.streamToString(sampleXmlInputStream);
 		assertTrue(sampleXml.startsWith("<xml_api_reply version=\"1\">"));
 	}
 	
-	public void testParse() throws XmlPullParserException {
+	public void testParse() throws XmlPullParserException, ParserConfigurationException, SAXException, IOException {
 		GoogleForecastParser forecastParser = new GoogleForecastParser();
-		Forecast forecast = forecastParser.parse(sampleXml);
+		Forecast forecast = forecastParser.parse(sampleXmlInputStream);
+		assertEquals("Mountain View, CA", forecast.getLocation());
 	}
 }
