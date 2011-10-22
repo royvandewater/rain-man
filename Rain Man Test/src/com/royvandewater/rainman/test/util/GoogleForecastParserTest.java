@@ -34,6 +34,11 @@ public class GoogleForecastParserTest extends InstrumentationTestCase {
         this.sampleXmlInputStream = assetManager.open(FIXTURE);
         this.forecastParser = new GoogleForecastParser();
     }
+    
+    @Override
+    protected void tearDown() throws Exception {
+    	sampleXmlInputStream.close();
+    }
 
     public void testConstructor() {
         assertEquals(CLASS_NAME, forecastParser.getClass().toString());

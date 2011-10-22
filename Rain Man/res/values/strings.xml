@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, RainManActivity!</string>
+    <string name="header">Zipcode Finder</string>
+    <string name="retrieving_zipcode">Retrieving Zipcode</string>
     <string name="app_name">Rain Man</string>
 </resources>

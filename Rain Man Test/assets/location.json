@@ -1,0 +1,185 @@
+{
+  "name": "33.341258,-111.842419",
+  "Status": {
+    "code": 200,
+    "request": "geocode"
+  },
+  "Placemark": [ {
+    "id": "p1",
+    "address": "2400 N Arizona Ave, Chandler, AZ 85225, USA",
+    "AddressDetails": {
+   "Accuracy" : 8,
+   "Country" : {
+      "AdministrativeArea" : {
+         "AdministrativeAreaName" : "AZ",
+         "Locality" : {
+            "LocalityName" : "Chandler",
+            "PostalCode" : {
+               "PostalCodeNumber" : "85225"
+            },
+            "Thoroughfare" : {
+               "ThoroughfareName" : "2400 N Arizona Ave"
+            }
+         }
+      },
+      "CountryName" : "USA",
+      "CountryNameCode" : "US"
+   }
+},
+    "ExtendedData": {
+      "LatLonBox": {
+        "north": 33.3426340,
+        "south": 33.3399360,
+        "east": -111.8407270,
+        "west": -111.8434250
+      }
+    },
+    "Point": {
+      "coordinates": [ -111.8420760, 33.3412850, 0 ]
+    }
+  }, {
+    "id": "p2",
+    "address": "Oasis Neighborhood, Chandler, AZ 85225, USA",
+    "AddressDetails": {
+   "Accuracy" : 4,
+   "Country" : {
+      "AdministrativeArea" : {
+         "AdministrativeAreaName" : "AZ",
+         "SubAdministrativeArea" : {
+            "Locality" : {
+               "DependentLocality" : {
+                  "DependentLocalityName" : "Oasis Neighborhood"
+               },
+               "LocalityName" : "Chandler"
+            },
+            "SubAdministrativeAreaName" : "Maricopa"
+         }
+      },
+      "CountryName" : "USA",
+      "CountryNameCode" : "US"
+   }
+},
+    "ExtendedData": {
+      "LatLonBox": {
+        "north": 33.3497120,
+        "south": 33.3351210,
+        "east": -111.8416950,
+        "west": -111.8489350
+      }
+    },
+    "Point": {
+      "coordinates": [ -111.8434441, 33.3411410, 0 ]
+    }
+  }, {
+    "id": "p3",
+    "address": "Chandler, AZ 85225, USA",
+    "AddressDetails": {
+   "Accuracy" : 5,
+   "Country" : {
+      "AdministrativeArea" : {
+         "AdministrativeAreaName" : "AZ",
+         "Locality" : {
+            "LocalityName" : "Chandler",
+            "PostalCode" : {
+               "PostalCodeNumber" : "85225"
+            }
+         }
+      },
+      "CountryName" : "USA",
+      "CountryNameCode" : "US"
+   }
+},
+    "ExtendedData": {
+      "LatLonBox": {
+        "north": 33.3618570,
+        "south": 33.2869940,
+        "east": -111.7894360,
+        "west": -111.8591500
+      }
+    },
+    "Point": {
+      "coordinates": [ -111.8210866, 33.3091946, 0 ]
+    }
+  }, {
+    "id": "p4",
+    "address": "Chandler, AZ, USA",
+    "AddressDetails": {
+   "Accuracy" : 4,
+   "Country" : {
+      "AdministrativeArea" : {
+         "AdministrativeAreaName" : "AZ",
+         "SubAdministrativeArea" : {
+            "Locality" : {
+               "LocalityName" : "Chandler"
+            },
+            "SubAdministrativeAreaName" : "Maricopa"
+         }
+      },
+      "CountryName" : "USA",
+      "CountryNameCode" : "US"
+   }
+},
+    "ExtendedData": {
+      "LatLonBox": {
+        "north": 33.3618570,
+        "south": 33.2037780,
+        "east": -111.7552870,
+        "west": -111.9724190
+      }
+    },
+    "Point": {
+      "coordinates": [ -111.8412502, 33.3061605, 0 ]
+    }
+  }, {
+    "id": "p5",
+    "address": "Maricopa, Arizona, USA",
+    "AddressDetails": {
+   "Accuracy" : 3,
+   "Country" : {
+      "AdministrativeArea" : {
+         "AdministrativeAreaName" : "AZ",
+         "SubAdministrativeArea" : {
+            "SubAdministrativeAreaName" : "Maricopa"
+         }
+      },
+      "CountryName" : "USA",
+      "CountryNameCode" : "US"
+   }
+},
+    "ExtendedData": {
+      "LatLonBox": {
+        "north": 34.0481700,
+        "south": 32.5049379,
+        "east": -111.0399050,
+        "west": -113.3344360
+      }
+    },
+    "Point": {
+      "coordinates": [ -112.4291464, 33.2917968, 0 ]
+    }
+  }, {
+    "id": "p6",
+    "address": "Arizona, USA",
+    "AddressDetails": {
+   "Accuracy" : 2,
+   "Country" : {
+      "AdministrativeArea" : {
+         "AdministrativeAreaName" : "AZ"
+      },
+      "CountryName" : "USA",
+      "CountryNameCode" : "US"
+   }
+},
+    "ExtendedData": {
+      "LatLonBox": {
+        "north": 37.0042599,
+        "south": 31.3321770,
+        "east": -109.0452230,
+        "west": -114.8165910
+      }
+    },
+    "Point": {
+      "coordinates": [ -111.0937311, 34.0489281, 0 ]
+    }
+  } ]
+}

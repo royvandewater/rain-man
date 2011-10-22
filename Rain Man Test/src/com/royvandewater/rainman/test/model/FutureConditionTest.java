@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 import com.royvandewater.rainman.models.FutureCondition;
 
-public class ConditionTest extends TestCase {
+public class FutureConditionTest extends TestCase {
 
 	final static String DAY_OF_WEEK = "Sun";
 	final static int LOW = 52;

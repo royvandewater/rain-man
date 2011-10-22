@@ -17,30 +17,13 @@ import com.royvandewater.rainman.models.Forecast;
 public class GoogleForecastParser extends DefaultHandler {
 
     public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss Z";
-
     public static String DATA = "data";
-
-    public enum Tag {
-        /* Sections */
-        FORECAST_INFORMATION, CURRENT_CONDITIONS, FORECAST_CONDITIONS,
-        /* Tags */
-        WEATHER, CITY, CURRENT_DATE_TIME, CONDITION, HUMIDITY, DAY_OF_WEEK, LOW, HIGH,
-
-        NOVALUE;
-
-        public static Tag toTag(String str) {
-            try {
-                return valueOf(str.toUpperCase());
-            } catch (Exception ex) {
-                return NOVALUE;
-            }
-        }
-    }
-
+    
+    @SuppressWarnings("unused")
+    private boolean inForecastInformation, inCurrentConditions, inForecastConditions;
     private Forecast forecast;
     private StringBuilder builder;
-
-    private boolean inForecastInformation, inCurrentConditions, inForecastConditions;
+    
 
     public Forecast parse(InputStream inputStream) throws XmlPullParserException, ParserConfigurationException, SAXException, IOException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -127,5 +110,22 @@ public class GoogleForecastParser extends DefaultHandler {
     public double parseHumidity(String string) {
         String humidityString = "." + string.substring(10, 12);
         return Double.parseDouble(humidityString);
+    }
+    
+    public enum Tag {
+        /* Sections */
+        FORECAST_INFORMATION, CURRENT_CONDITIONS, FORECAST_CONDITIONS,
+        /* Tags */
+        WEATHER, CITY, CURRENT_DATE_TIME, CONDITION, HUMIDITY, DAY_OF_WEEK, LOW, HIGH,
+
+        NOVALUE;
+
+        public static Tag toTag(String str) {
+            try {
+                return valueOf(str.toUpperCase());
+            } catch (Exception ex) {
+                return NOVALUE;
+            }
+        }
     }
 }

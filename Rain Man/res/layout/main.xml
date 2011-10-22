@@ -6,7 +6,17 @@
     >
 <TextView  
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
+    android:layout_height="wrap_content"
+    android:text="@string/header"
+    android:textSize="30sp"
+    android:gravity="center"
+    />
+<TextView  
+    android:id="@+id/zipcode"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:text="@string/retrieving_zipcode"
+    android:textSize="24sp"
+    android:gravity="center"
     />
 </LinearLayout>
