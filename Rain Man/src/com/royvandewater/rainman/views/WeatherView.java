@@ -20,10 +20,17 @@ public class WeatherView
         activity.setContentView(R.layout.main);
     }
 
-    public void displayZipcode(String value)
+    public void displayZipcode(String zipcode)
     {
         TextView zipcodeText = (TextView)activity.findViewById(R.id.zipcode);
-        zipcodeText.setText(value);
+        zipcodeText.setText(zipcode);
+    }
+    
+    public void displayWeather(String weather)
+    {
+        TextView weatherText = (TextView)activity.findViewById(R.id.weather);
+        weatherText.setText(weather);
+        
     }
     
     public void displayError(ErrorMessage errorMessage)

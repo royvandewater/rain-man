@@ -33,7 +33,7 @@ public class Forecast {
 		this.temperature = temperature;
 		this.humidity = humidity;
 	}
-
+	
 	public void setLocation(String location) {
 		this.location = location;
 	}

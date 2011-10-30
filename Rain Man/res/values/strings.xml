@@ -2,5 +2,6 @@
 <resources>
     <string name="header">Zipcode Finder</string>
     <string name="retrieving_zipcode">Retrieving Zipcode</string>
+    <string name="retrieving_weather">Retrieving Weather</string>
     <string name="app_name">Rain Man</string>
 </resources>
