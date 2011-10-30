@@ -32,9 +32,12 @@ public class RainManActivity extends Activity
 
         requestLocation(new Callback() {
 
-            public void call(Object error, Object location)
+            public void call(Object error, Object value)
             {
-                getZipcode((Location)location, new Callback() {
+                Location location = (Location)value;
+                view.displayGpsCoordinates(location.getLongitude() + ", " + location.getLatitude());
+                
+                getZipcode(location, new Callback() {
 
                     public void call(Object error, Object zipcode)
                     {

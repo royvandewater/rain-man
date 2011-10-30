@@ -19,6 +19,12 @@ public class WeatherView
     public void initialize() {
         activity.setContentView(R.layout.main);
     }
+    
+    public void displayGpsCoordinates(String gpsCoordinates)
+    {
+        TextView gpsCoordinatesText = (TextView)activity.findViewById(R.id.gps_coordinates);
+        gpsCoordinatesText.setText(gpsCoordinates);
+    }
 
     public void displayZipcode(String zipcode)
     {

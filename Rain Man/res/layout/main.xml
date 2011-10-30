@@ -1,31 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content"
-    android:text="@string/header"
-    android:textSize="30sp"
-    android:gravity="center"
-    />
-<TextView  
-    android:id="@+id/zipcode"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content"
-    android:text="@string/retrieving_zipcode"
-    android:textSize="24sp"
-    android:gravity="center"
-    />
-<TextView  
-    android:id="@+id/weather"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content"
-    android:text="@string/retrieving_weather"
-    android:textSize="24sp"
-    android:gravity="center"
-    />
-    
+    android:layout_height="fill_parent">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/header"
+        android:textSize="30sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gps_coordinates"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/gps_coordinates"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/retrieving"
+        android:textSize="20sp"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/zipcode"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/zipcode"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/retrieving"
+        android:textSize="20sp"
+        android:gravity="center" />
+        
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/weather"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:gravity="center" />
+        
+    <TextView
+        android:id="@+id/weather"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/retrieving"
+        android:textSize="20sp"
+        android:gravity="center" />
+
 </LinearLayout>

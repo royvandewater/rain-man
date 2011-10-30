@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="header">Zipcode Finder</string>
-    <string name="retrieving_zipcode">Retrieving Zipcode</string>
-    <string name="retrieving_weather">Retrieving Weather</string>
     <string name="app_name">Rain Man</string>
+    <string name="gps_coordinates">GPS Coordinates</string>
+    <string name="header">Weather Finder</string>
+    <string name="retrieving">Retrieving</string>
+    <string name="weather">Weather</string>
+    <string name="zipcode">Zipcode</string>
 </resources>
