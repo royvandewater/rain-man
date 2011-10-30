@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.location.Address;
+import com.royvandewater.rainman.models.Address;
 
 public class AddressParser
 {
