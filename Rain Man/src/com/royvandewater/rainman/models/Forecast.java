@@ -1,11 +1,14 @@
 package com.royvandewater.rainman.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Forecast {
+public class Forecast implements Serializable {
 
-	public static final String DEFAULT_LOCATION = "None";
+    private static final long serialVersionUID = -2141994279054434829L;
+    
+    public static final String DEFAULT_LOCATION = "None";
 	public static final int DEFAULT_TEMPERATURE = 0;
 	public static final double DEFAULT_HUMIDITY = 0.0;
 	public static final String DEFAULT_WEATHER_CONDITION = "None";

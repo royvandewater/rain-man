@@ -1,12 +1,12 @@
 package com.royvandewater.rainman.views;
 
-import com.royvandewater.rainman.R;
-import com.royvandewater.rainman.RainManActivity;
-import com.royvandewater.rainman.util.ErrorMessage;
 import android.app.Activity;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.royvandewater.rainman.R;
+import com.royvandewater.rainman.RainManApplication;
+import com.royvandewater.rainman.util.ErrorMessage;
 
 public class WeatherView
 {
@@ -42,7 +42,7 @@ public class WeatherView
     public void displayError(ErrorMessage errorMessage)
     {
         if(errorMessage.getException() != null)
-            Log.e(RainManActivity.TAG, errorMessage.getException().getStackTrace().toString());
+            Log.e(RainManApplication.TAG, errorMessage.getException().getStackTrace().toString());
         
         Toast.makeText(activity, errorMessage.getMessage(), Toast.LENGTH_LONG).show();
     }

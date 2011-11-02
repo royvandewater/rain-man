@@ -2,5 +2,5 @@ package com.royvandewater.rainman.util;
 
 public interface Callback
 {
-    public void call(Object error, Object value);
+    public void call(ErrorMessage error, Object value);
 }
