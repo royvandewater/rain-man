@@ -95,12 +95,13 @@ public class RainManActivity extends Activity implements Handler.Callback
     
     private void findLocation()
     {
-        LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        final LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
         
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
             public void onLocationChanged(Location location)
             {
                 sendMessage(EventName.LOCATION_UPDATE, location);
+                locationManager.removeUpdates(this);
             }
             
             public void onStatusChanged(String provider, int status, Bundle extras)
