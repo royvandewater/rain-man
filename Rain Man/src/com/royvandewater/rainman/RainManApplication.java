@@ -12,5 +12,19 @@ public class RainManApplication extends Application {
     public void onCreate()
     {
         super.onCreate();
+        
+    }
+    
+    public static enum EventName {
+        NOVALUE, LOCATION_UPDATE, ZIPCODE_UPDATE, WEATHER_UPDATE, ERROR, POLL_EVENT;
+
+        public static EventName toEventName(String str)
+        {
+            try {
+                return valueOf(str.toUpperCase());
+            } catch (Exception e) {
+                return NOVALUE;
+            }
+        }
     }
 }
