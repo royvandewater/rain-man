@@ -16,12 +16,14 @@ import com.royvandewater.rainman.tasks.AddressRequestTask;
 import com.royvandewater.rainman.tasks.WeatherRequestTask;
 import com.royvandewater.rainman.util.Callback;
 import com.royvandewater.rainman.util.ErrorMessage;
+import com.royvandewater.rainman.views.WeatherNotification;
 import com.royvandewater.rainman.views.WeatherView;
 
 public class RainManActivity extends Activity implements Handler.Callback
 {
     private final ArrayList<Handler> handlers = new ArrayList<Handler>();
     private final WeatherView view = new WeatherView(this);
+    private final WeatherNotification notification = new WeatherNotification(this);
 
     private boolean requesting_address = false;
     private boolean requesting_weather = false;
@@ -34,6 +36,7 @@ public class RainManActivity extends Activity implements Handler.Callback
 
         registerHandler(new Handler(this));
         view.initialize();
+        notification.initialize();
         findLocation();
     }
     
@@ -82,6 +85,7 @@ public class RainManActivity extends Activity implements Handler.Callback
     
     private void onWeatherUpdate(Forecast forecast) {
         view.displayWeather(forecast.getWeatherCondition());
+        notification.displayWeather(forecast.getWeatherCondition());
     }
     
     private void onError(ErrorMessage errorMessage)
