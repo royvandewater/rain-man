@@ -33,6 +33,7 @@ public class WeatherNotification
         long when = System.currentTimeMillis();
 
         Notification notification = new Notification(ICON, weather, when);
+        notification.defaults = Notification.DEFAULT_ALL;
 
         Intent notificationIntent = new Intent(this.activity, RainManActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this.activity, 0, notificationIntent, 0);
