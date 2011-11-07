@@ -18,11 +18,14 @@ import com.royvandewater.rainman.tasks.WeatherRequestTask;
 import com.royvandewater.rainman.util.Callback;
 import com.royvandewater.rainman.util.ErrorMessage;
 import com.royvandewater.rainman.util.EventBus;
+import com.royvandewater.rainman.views.WeatherNotification;
 
 public class WeatherService extends Service implements Handler.Callback
 {
 
     private final EventBus eventBus = EventBus.obtain();
+    private final WeatherNotification notification = new WeatherNotification(this);
+
     private boolean requesting_address = false;
     private boolean requesting_weather = false;
     private PollTask task;
@@ -31,38 +34,38 @@ public class WeatherService extends Service implements Handler.Callback
     public void onCreate()
     {
         super.onCreate();
-        
+
         eventBus.registerHandler(new Handler(this));
-        
-        task = new PollTask(10000, EventName.POLL_EVENT.toString());
+        notification.initialize();
+        task = new PollTask(15 * 60 * 1000, EventName.POLL_EVENT.toString());
         task.execute();
     }
-    
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         return START_STICKY;
     }
-    
+
     @Override
     public void onDestroy()
     {
         task.cancel(true);
     }
-    
+
     @Override
     public IBinder onBind(Intent intent)
     {
         return null;
     }
-    
+
     public boolean handleMessage(Message message)
     {
         Bundle bundle = message.getData();
 
         EventName eventName = EventName.toEventName(bundle.getString(EventBus.EVENT_NAME));
         Object data = bundle.get(EventBus.EVENT_DATA);
-        
+
         switch (eventName) {
             case POLL_EVENT:
                 onPollEvent();
@@ -73,13 +76,16 @@ public class WeatherService extends Service implements Handler.Callback
             case ZIPCODE_UPDATE:
                 this.onZipcodeUpdate((String)data);
                 break;
+            case WEATHER_UPDATE:
+                this.onWeatherUpdate((Forecast)data);
             case NOVALUE:
                 break;
         }
         return false;
     }
-    
-    private void onPollEvent() {
+
+    private void onPollEvent()
+    {
         findLocation();
     }
 
@@ -92,18 +98,26 @@ public class WeatherService extends Service implements Handler.Callback
     {
         findWeather(zipcode);
     }
-    
+
+    private void onWeatherUpdate(Forecast forecast)
+    {
+        String condition = forecast.getWeatherCondition();
+        
+        if(condition.toLowerCase().contains("rain") || condition.toLowerCase().contains("storm"))
+            notification.displayWeather(forecast.getWeatherCondition());
+    }
+
     private void findLocation()
     {
         final LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-        
+
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
             public void onLocationChanged(Location location)
             {
                 eventBus.sendMessage(EventName.LOCATION_UPDATE.toString(), location);
                 locationManager.removeUpdates(this);
             }
-            
+
             public void onStatusChanged(String provider, int status, Bundle extras)
             {
             }
@@ -115,7 +129,7 @@ public class WeatherService extends Service implements Handler.Callback
             }
         });
     }
-    
+
     private void findZipcode(Location location)
     {
         if (!requesting_address) {
@@ -124,7 +138,7 @@ public class WeatherService extends Service implements Handler.Callback
                 public void call(ErrorMessage error, Object value)
                 {
                     requesting_address = false;
-                    
+
                     if (error != null)
                         eventBus.sendMessage(EventName.ERROR.toString(), error);
                     else
@@ -134,7 +148,7 @@ public class WeatherService extends Service implements Handler.Callback
             task.execute(location);
         }
     }
-    
+
     private void findWeather(String zipcode)
     {
         if (!requesting_weather) {
@@ -154,6 +168,5 @@ public class WeatherService extends Service implements Handler.Callback
             task.execute(zipcode);
         }
     }
-
 
 }

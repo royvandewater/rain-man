@@ -10,14 +10,12 @@ import com.royvandewater.rainman.RainManApplication.EventName;
 import com.royvandewater.rainman.models.Forecast;
 import com.royvandewater.rainman.util.ErrorMessage;
 import com.royvandewater.rainman.util.EventBus;
-import com.royvandewater.rainman.views.WeatherNotification;
 import com.royvandewater.rainman.views.WeatherView;
 
 public class RainManActivity extends Activity implements Handler.Callback
 {
     
     private final WeatherView view = new WeatherView(this);
-    private final WeatherNotification notification = new WeatherNotification(this);
     private final EventBus eventBus = EventBus.obtain();
 
     @Override
@@ -27,7 +25,6 @@ public class RainManActivity extends Activity implements Handler.Callback
 
         eventBus.registerHandler(new Handler(this));
         view.initialize();
-        notification.initialize();
         
         Intent intent = new Intent(this, WeatherService.class);
         startService(intent);
@@ -72,7 +69,6 @@ public class RainManActivity extends Activity implements Handler.Callback
     
     private void onWeatherUpdate(Forecast forecast) {
         view.displayWeather(forecast.getWeatherCondition());
-        notification.displayWeather(forecast.getWeatherCondition());
     }
     
     private void onError(ErrorMessage errorMessage)
