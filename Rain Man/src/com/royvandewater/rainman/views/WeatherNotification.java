@@ -6,7 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import com.royvandewater.rainman.R;
-import com.royvandewater.rainman.RainManActivity;
+import com.royvandewater.rainman.activities.RainManActivity;
 
 public class WeatherNotification
 {

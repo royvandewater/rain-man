@@ -9,6 +9,7 @@ public class PollTask extends AsyncTask<String, Void, Void>
     private static EventBus eventBus = EventBus.obtain();
     private long interval;
     private String eventName;
+    
     /**
      * @param interval in milliseconds
      * @param event to fire
@@ -21,11 +22,12 @@ public class PollTask extends AsyncTask<String, Void, Void>
     @Override
     protected Void doInBackground(String... params)
     {
+        
         while(!isCancelled())
         {
             publishProgress();
             try {
-                Thread.sleep(interval);
+                Thread.sleep(1000 * 60 * interval);
             } catch (InterruptedException e) {
                 return null;
             }

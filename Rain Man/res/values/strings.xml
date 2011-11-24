@@ -3,7 +3,11 @@
     <string name="app_name">Rain Man</string>
     <string name="gps_coordinates">GPS Coordinates</string>
     <string name="header">Weather Finder</string>
+    <string name="polling_interval">Polling Interval</string>
+    <string name="polling_interval_description">Time between checks for rain</string>
+    <string name="preferences">Preferences</string>
     <string name="retrieving">Retrieving</string>
     <string name="weather">Weather</string>
+    <string name="weather_preferences">Weather Preferences</string>
     <string name="zipcode">Zipcode</string>
 </resources>

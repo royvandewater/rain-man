@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/weather_preferences">
+        <com.royvandewater.rainman.views.SeekBarPreference
+            android:dialogMessage="Time between checks for rain"
+            android:key="poll_interval"
+            android:max="60"
+            android:summary="@string/polling_interval_description"
+            android:text=" Minutes"
+            android:title="@string/polling_interval" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

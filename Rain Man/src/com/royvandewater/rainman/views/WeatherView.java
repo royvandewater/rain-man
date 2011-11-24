@@ -36,7 +36,6 @@ public class WeatherView
     {
         TextView weatherText = (TextView)activity.findViewById(R.id.weather);
         weatherText.setText(weather);
-        
     }
     
     public void displayError(ErrorMessage errorMessage)
@@ -45,5 +44,11 @@ public class WeatherView
             Log.e(RainManApplication.TAG, errorMessage.getException().getStackTrace().toString());
         
         Toast.makeText(activity, errorMessage.getMessage(), Toast.LENGTH_LONG).show();
+    }
+    
+    public void displayPollingInterval(int pollingInterval)
+    {
+        TextView pollingIntervalText = (TextView)activity.findViewById(R.id.polling_interval);
+        pollingIntervalText.setText(pollingInterval + " Minutes");
     }
 }

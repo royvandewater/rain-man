@@ -1,21 +1,28 @@
-package com.royvandewater.rainman;
+package com.royvandewater.rainman.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import com.royvandewater.rainman.RainManApplication.EventName;
+import com.royvandewater.rainman.WeatherService;
 import com.royvandewater.rainman.models.Forecast;
 import com.royvandewater.rainman.util.ErrorMessage;
 import com.royvandewater.rainman.util.EventBus;
+import com.royvandewater.rainman.views.MenuView;
 import com.royvandewater.rainman.views.WeatherView;
 
 public class RainManActivity extends Activity implements Handler.Callback
 {
     
     private final WeatherView view = new WeatherView(this);
+    private final MenuView menuView = new MenuView(this);
     private final EventBus eventBus = EventBus.obtain();
 
     @Override
@@ -28,6 +35,22 @@ public class RainManActivity extends Activity implements Handler.Callback
         
         Intent intent = new Intent(this, WeatherService.class);
         startService(intent);
+        
+        this.onPreferencesUpdate();
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        menuView.showMenu(menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        menuView.select(item);
+        return true;
     }
     
     
@@ -51,12 +74,15 @@ public class RainManActivity extends Activity implements Handler.Callback
             case ERROR:
                 this.onError((ErrorMessage)data);
                 break;
+            case PREFERENCES_UPDATE:
+                this.onPreferencesUpdate();
+                break;
             case NOVALUE:
                 break;
         }
         return false;
     }
-
+    
     private void onLocationUpdate(Location location)
     {
         view.displayGpsCoordinates(location.getLongitude() + ", " + location.getLatitude());
@@ -69,6 +95,12 @@ public class RainManActivity extends Activity implements Handler.Callback
     
     private void onWeatherUpdate(Forecast forecast) {
         view.displayWeather(forecast.getWeatherCondition());
+    }
+    
+    private void onPreferencesUpdate() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int pollingInterval = preferences.getInt("poll_interval", 15);
+        view.displayPollingInterval(pollingInterval);
     }
     
     private void onError(ErrorMessage errorMessage)

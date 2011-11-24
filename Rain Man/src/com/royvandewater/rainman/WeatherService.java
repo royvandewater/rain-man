@@ -3,6 +3,7 @@ package com.royvandewater.rainman;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import com.royvandewater.rainman.RainManApplication.EventName;
 import com.royvandewater.rainman.models.Forecast;
 import com.royvandewater.rainman.tasks.AddressRequestTask;
@@ -34,11 +36,11 @@ public class WeatherService extends Service implements Handler.Callback
     public void onCreate()
     {
         super.onCreate();
-
+        
         eventBus.registerHandler(new Handler(this));
         notification.initialize();
-        task = new PollTask(15 * 60 * 1000, EventName.POLL_EVENT.toString());
-        task.execute();
+        
+        instantiatePollTask();
     }
 
     @Override
@@ -78,11 +80,16 @@ public class WeatherService extends Service implements Handler.Callback
                 break;
             case WEATHER_UPDATE:
                 this.onWeatherUpdate((Forecast)data);
+                break;
+            case PREFERENCES_UPDATE:
+                this.instantiatePollTask();
+                break;
             case NOVALUE:
                 break;
         }
         return false;
     }
+
 
     private void onPollEvent()
     {
@@ -105,6 +112,18 @@ public class WeatherService extends Service implements Handler.Callback
         
         if(condition.toLowerCase().contains("rain") || condition.toLowerCase().contains("storm"))
             notification.displayWeather(forecast.getWeatherCondition());
+    }
+
+    private void instantiatePollTask()
+    {
+        if(task != null)
+            task.cancel(true);
+        
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int pollingInterval = preferences.getInt("poll_interval", 15);
+        
+        task = new PollTask(pollingInterval, EventName.POLL_EVENT.toString());
+        task.execute();
     }
 
     private void findLocation()
@@ -168,5 +187,4 @@ public class WeatherService extends Service implements Handler.Callback
             task.execute(zipcode);
         }
     }
-
 }
