@@ -2,9 +2,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/weather_preferences">
+        <CheckBoxPreference
+            android:title="@string/check_weather"
+            android:summaryOn="@string/check_weather_on"
+            android:summaryOff="@string/check_weather_off"
+            android:key="@string/check_weather_preference" />
+
         <com.royvandewater.rainman.views.SeekBarPreference
             android:dialogMessage="Time between checks for rain"
-            android:key="poll_interval"
+            android:key="@string/polling_interval_preference"
             android:max="60"
             android:summary="@string/polling_interval_description"
             android:text=" Minutes"

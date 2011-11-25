@@ -24,13 +24,14 @@ import com.royvandewater.rainman.views.WeatherNotification;
 
 public class WeatherService extends Service implements Handler.Callback
 {
-
     private final EventBus eventBus = EventBus.obtain();
     private final WeatherNotification notification = new WeatherNotification(this);
 
     private boolean requesting_address = false;
     private boolean requesting_weather = false;
     private PollTask task;
+    
+    private static final int DEFAULT_POLLING_INTERVAL = 15;
 
     @Override
     public void onCreate()
@@ -40,7 +41,7 @@ public class WeatherService extends Service implements Handler.Callback
         eventBus.registerHandler(new Handler(this));
         notification.initialize();
         
-        instantiatePollTask();
+        onPrefencesUpdate();
     }
 
     @Override
@@ -82,7 +83,7 @@ public class WeatherService extends Service implements Handler.Callback
                 this.onWeatherUpdate((Forecast)data);
                 break;
             case PREFERENCES_UPDATE:
-                this.instantiatePollTask();
+                this.onPrefencesUpdate();
                 break;
             case NOVALUE:
                 break;
@@ -114,16 +115,19 @@ public class WeatherService extends Service implements Handler.Callback
             notification.displayWeather(forecast.getWeatherCondition());
     }
 
-    private void instantiatePollTask()
+    private void onPrefencesUpdate()
     {
         if(task != null)
             task.cancel(true);
         
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int pollingInterval = preferences.getInt("poll_interval", 15);
-        
-        task = new PollTask(pollingInterval, EventName.POLL_EVENT.toString());
-        task.execute();
+        boolean checkWeather = preferences.getBoolean(getString(R.string.check_weather_preference), true);
+        int pollingInterval = preferences.getInt(getString(R.string.polling_interval_preference), DEFAULT_POLLING_INTERVAL);
+
+        if(checkWeather) {
+            task = new PollTask(pollingInterval, EventName.POLL_EVENT.toString());
+            task.execute();
+        }
     }
 
     private void findLocation()

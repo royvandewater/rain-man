@@ -30,7 +30,6 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         this.suffix = attrs.getAttributeValue(ANDROID_NS, "text");
         this.defaultValue = attrs.getAttributeIntValue(ANDROID_NS, "defaultValue", 0);
         this.maxValue = attrs.getAttributeIntValue(ANDROID_NS, "max", 100);
-
     }
 
     @Override
@@ -98,6 +97,10 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
     private void persistProgress()
     {
         int progress = getProgress();
+        
+        if (progress == 0) // Prevent from calling as fast as possible
+            progress = 1;
+        
         if (shouldPersist())
             persistInt(progress);
         callChangeListener(new Integer(progress));

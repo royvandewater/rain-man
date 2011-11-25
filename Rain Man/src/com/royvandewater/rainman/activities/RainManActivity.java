@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.royvandewater.rainman.RainManApplication.EventName;
+import com.royvandewater.rainman.R;
 import com.royvandewater.rainman.WeatherService;
 import com.royvandewater.rainman.models.Forecast;
 import com.royvandewater.rainman.util.ErrorMessage;
@@ -24,7 +25,7 @@ public class RainManActivity extends Activity implements Handler.Callback
     private final WeatherView view = new WeatherView(this);
     private final MenuView menuView = new MenuView(this);
     private final EventBus eventBus = EventBus.obtain();
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -99,7 +100,7 @@ public class RainManActivity extends Activity implements Handler.Callback
     
     private void onPreferencesUpdate() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int pollingInterval = preferences.getInt("poll_interval", 15);
+        int pollingInterval = preferences.getInt(getString(R.string.polling_interval_preference), 15);
         view.displayPollingInterval(pollingInterval);
     }
     
