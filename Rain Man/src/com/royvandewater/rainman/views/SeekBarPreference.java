@@ -13,13 +13,14 @@ import android.widget.TextView;
 public class SeekBarPreference extends DialogPreference implements SeekBar.OnSeekBarChangeListener
 {
     private static final String ANDROID_NS = "http://schemas.android.com/apk/res/android";
+    private static final String RAINMAN_NS = "http://schemas.android.com/apk/res/com.royvandewater.rainman";
 
     private SeekBar seekBar;
     private TextView splashText, valueText;
     private Context context;
 
     private String dialogMessage, suffix;
-    private int defaultValue, maxValue, value = 0;
+    private int defaultValue, maxValue, minValue, value = 0;
 
     public SeekBarPreference(Context context, AttributeSet attrs)
     {
@@ -30,6 +31,7 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
         this.suffix = attrs.getAttributeValue(ANDROID_NS, "text");
         this.defaultValue = attrs.getAttributeIntValue(ANDROID_NS, "defaultValue", 0);
         this.maxValue = attrs.getAttributeIntValue(ANDROID_NS, "max", 100);
+        this.minValue = attrs.getAttributeIntValue(RAINMAN_NS, "min", 0);
     }
 
     @Override
@@ -83,6 +85,11 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 
     public void onProgressChanged(SeekBar seek, int value, boolean fromTouch)
     {
+        if (value < minValue) { // Enforce minimum value constraint
+            value = minValue;
+            setProgress(value);
+        }
+
         String t = String.valueOf(value);
         valueText.setText(suffix == null ? t : t.concat(suffix));
     }
@@ -90,17 +97,14 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
     @Override
     public void onClick(DialogInterface dialog, int button)
     {
-        if(button == DialogInterface.BUTTON_POSITIVE)
+        if (button == DialogInterface.BUTTON_POSITIVE)
             persistProgress();
     }
 
     private void persistProgress()
     {
         int progress = getProgress();
-        
-        if (progress == 0) // Prevent from calling as fast as possible
-            progress = 1;
-        
+
         if (shouldPersist())
             persistInt(progress);
         callChangeListener(new Integer(progress));
@@ -133,7 +137,7 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
     {
         if (seekBar != null)
             this.value = seekBar.getProgress();
-        
+
         return value;
     }
 }
