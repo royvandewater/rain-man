@@ -26,7 +26,7 @@ public class RainmanNotification
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(NOTIFICATION_ID);
     }
-
+    
     public void displayWeather(String message)
     {
         long when = System.currentTimeMillis();
@@ -40,5 +40,4 @@ public class RainmanNotification
         notification.setLatestEventInfo(this.context, TITLE, message, contentIntent);
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
-
 }
