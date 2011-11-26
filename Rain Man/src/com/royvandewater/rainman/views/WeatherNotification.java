@@ -6,7 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import com.royvandewater.rainman.R;
-import com.royvandewater.rainman.activities.RainManActivity;
+import com.royvandewater.rainman.activities.RainManPreferenceActivity;
 
 public class WeatherNotification
 {
@@ -34,7 +34,7 @@ public class WeatherNotification
         Notification notification = new Notification(ICON, weather, when);
         notification.defaults = Notification.DEFAULT_ALL;
 
-        Intent notificationIntent = new Intent(this.context, RainManActivity.class);
+        Intent notificationIntent = new Intent(this.context, RainManPreferenceActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this.context, 0, notificationIntent, 0);
 
         notification.setLatestEventInfo(this.context, TITLE, weather, contentIntent);

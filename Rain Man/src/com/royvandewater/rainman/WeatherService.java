@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
 import com.royvandewater.rainman.RainManApplication.EventName;
 import com.royvandewater.rainman.models.Forecast;
 import com.royvandewater.rainman.tasks.AddressRequestTask;
@@ -85,6 +87,9 @@ public class WeatherService extends Service implements Handler.Callback
             case PREFERENCES_UPDATE:
                 this.onPrefencesUpdate();
                 break;
+            case ERROR:
+                this.onError((ErrorMessage)data);
+                break;
             case NOVALUE:
                 break;
         }
@@ -128,6 +133,14 @@ public class WeatherService extends Service implements Handler.Callback
             task = new PollTask(pollingInterval, EventName.POLL_EVENT.toString());
             task.execute();
         }
+    }
+    
+    private void onError(ErrorMessage errorMessage)
+    {
+        if(errorMessage.getException() != null)
+            Log.e(RainManApplication.TAG, errorMessage.getException().getStackTrace().toString());
+        
+        Toast.makeText(this, errorMessage.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     private void findLocation()

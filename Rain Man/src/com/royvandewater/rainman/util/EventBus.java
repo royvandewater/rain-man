@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class EventBus
 {
@@ -54,6 +55,8 @@ public class EventBus
     
     public void sendMessage(String eventName, Bundle bundle)
     {
+        Log.i("event_bus", "Event: " + eventName);
+        
         bundle.putString(EVENT_NAME, eventName);
 
         for (Handler handler : handlers) {
