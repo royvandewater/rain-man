@@ -22,27 +22,27 @@ import com.royvandewater.rainman.tasks.WeatherRequestTask;
 import com.royvandewater.rainman.util.Callback;
 import com.royvandewater.rainman.util.ErrorMessage;
 import com.royvandewater.rainman.util.EventBus;
-import com.royvandewater.rainman.views.WeatherNotification;
+import com.royvandewater.rainman.views.RainmanNotification;
 
 public class WeatherService extends Service implements Handler.Callback
 {
     private final EventBus eventBus = EventBus.obtain();
-    private final WeatherNotification notification = new WeatherNotification(this);
+    private final RainmanNotification notification = new RainmanNotification(this);
 
     private boolean requesting_address = false;
     private boolean requesting_weather = false;
     private PollTask task;
-    
+
     private static final int DEFAULT_POLLING_INTERVAL = 15;
 
     @Override
     public void onCreate()
     {
         super.onCreate();
-        
+
         eventBus.registerHandler(new Handler(this));
         notification.initialize();
-        
+
         onPrefencesUpdate();
     }
 
@@ -96,7 +96,6 @@ public class WeatherService extends Service implements Handler.Callback
         return false;
     }
 
-
     private void onPollEvent()
     {
         findLocation();
@@ -115,37 +114,42 @@ public class WeatherService extends Service implements Handler.Callback
     private void onWeatherUpdate(Forecast forecast)
     {
         String condition = forecast.getWeatherCondition();
-        
-        if(condition.toLowerCase().contains("rain") || condition.toLowerCase().contains("storm"))
+
+        if (condition.toLowerCase().contains("rain") || condition.toLowerCase().contains("storm"))
             notification.displayWeather(forecast.getWeatherCondition());
     }
 
     private void onPrefencesUpdate()
     {
-        if(task != null)
+        if (task != null)
             task.cancel(true);
-        
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean checkWeather = preferences.getBoolean(getString(R.string.check_weather_preference), true);
         int pollingInterval = preferences.getInt(getString(R.string.polling_interval_preference), DEFAULT_POLLING_INTERVAL);
 
-        if(checkWeather) {
+        if (checkWeather) {
             task = new PollTask(pollingInterval, EventName.POLL_EVENT.toString());
             task.execute();
         }
     }
-    
+
     private void onError(ErrorMessage errorMessage)
     {
-        if(errorMessage.getException() != null)
+        if (errorMessage.getException() != null)
             Log.e(RainManApplication.TAG, errorMessage.getException().getStackTrace().toString());
-        
+
         Toast.makeText(this, errorMessage.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     private void findLocation()
     {
         final LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        
+        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            notification.displayWeather("Please enable Network Location in Android Preferences or disable 'Check Weather'");
+            return;
+        }
 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
             public void onLocationChanged(Location location)

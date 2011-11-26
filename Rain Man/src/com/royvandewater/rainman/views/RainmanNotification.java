@@ -8,7 +8,7 @@ import android.content.Intent;
 import com.royvandewater.rainman.R;
 import com.royvandewater.rainman.activities.RainManPreferenceActivity;
 
-public class WeatherNotification
+public class RainmanNotification
 {
     public final static int ICON = R.drawable.icon;
     private static final int NOTIFICATION_ID = 1;
@@ -16,7 +16,7 @@ public class WeatherNotification
     private NotificationManager notificationManager;
     private Context context;
 
-    public WeatherNotification(Context context)
+    public RainmanNotification(Context context)
     {
         this.context = context;
     }
@@ -27,17 +27,17 @@ public class WeatherNotification
         notificationManager.cancel(NOTIFICATION_ID);
     }
 
-    public void displayWeather(String weather)
+    public void displayWeather(String message)
     {
         long when = System.currentTimeMillis();
 
-        Notification notification = new Notification(ICON, weather, when);
+        Notification notification = new Notification(ICON, message, when);
         notification.defaults = Notification.DEFAULT_ALL;
 
         Intent notificationIntent = new Intent(this.context, RainManPreferenceActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this.context, 0, notificationIntent, 0);
 
-        notification.setLatestEventInfo(this.context, TITLE, weather, contentIntent);
+        notification.setLatestEventInfo(this.context, TITLE, message, contentIntent);
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
